@@ -1,11 +1,10 @@
 'use strict';
-const nunjucks = require('nunjucks');
+
 const webpackMiddleWare = require('./webpack.middleware');
 const bodyParser = require('body-parser');
 const compression = require('compression');
 const csurf = require('./csurf');
 const helmet = require('helmet');
-const config = require('../config/server.config');
 module.exports = (app) => {
     app.use(helmet());
     // 引入webpack 相关中间件

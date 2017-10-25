@@ -5,11 +5,11 @@ const router = express.Router();
 /**
  * 基本设置
  */
-router.use('/:id', (req, res)=>{
-    res.send('123123');
-});
 
-router.use('/', (req, res)=>{
-    res.send('user controller');
+router.use('/detail', (req, res)=>{
+    res.render('user/detail/detail');
+});
+router.use('/login', (req, res)=>{
+    res.render('user/login/login');
 });
 module.exports = router;

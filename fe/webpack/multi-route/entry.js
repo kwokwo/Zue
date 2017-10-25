@@ -14,7 +14,7 @@ module.exports = {
         let entrys = {},
             htmls = [];
         // glob 获取除了template 模板文件 转为js 对应的编译入口 entry
-        let files = glob.sync(config.frontendProject + '/src/pages/**!(template|templates)/*.' + config.templateExt);
+        let files = glob.sync(config.frontendProject + '/src/pages/**/*.' + config.templateExt);
         // 循环获取文件
         files.forEach((_file) => {
             let file = path.parse(_file);
@@ -41,9 +41,8 @@ module.exports = {
     getMultiWebpackHtml(file) {
         let srcPath = config.frontendProject + '/src';
         let dirPath = file.dir.slice(srcPath.length);
-        console.log(dirPath);
         return new HtmlWebpackPlugin({
-            filename: 'templates/' + dirPath + '/' + file.name + '.' + config.templateExt,
+            filename: config.root+'/server/views/' + dirPath + '/' + file.name + '.' + config.templateExt,
             template: file.dir + '/' + file.name + file.ext,
             chunks: ['static/common', 'static/' + file.name],
             inject: true,

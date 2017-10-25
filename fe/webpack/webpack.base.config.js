@@ -4,7 +4,9 @@ const config = require('./config');
 const webpackEntry = require('./multi-route/entry');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 let baseEntry = webpackEntry.getMultiEntry();
+console.log(path.resolve(__dirname, '../src/partial/'+config.partial));
 let webpackPlugins = [
   new ExtractTextPlugin('[name].[hash].css'),
   new webpack.optimize.CommonsChunkPlugin({
@@ -17,6 +19,13 @@ let webpackPlugins = [
   }),
   // 写入硬盘 -- 需要htmlwebpackPlugins 配置
   new HtmlWebpackHarddiskPlugin(),
+  // 复制 partial 公共部分到view
+  new CopyWebpackPlugin([
+    {
+      context: path.resolve(__dirname, '../src/partial/'+config.partial),
+      from: '**/*.html',
+      to: config.root + '/server/views/partial'},
+  ]),
 ];
 // 添加多个路由的编译html
 

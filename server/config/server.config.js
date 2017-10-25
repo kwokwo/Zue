@@ -8,7 +8,7 @@ let config = {
     root: path.resolve(__dirname, '../../'),
     templateExt: 'html',
     frontendProject: 'fe',
-    viewPath: 'templates',
+    partial: 'nunjucks',
     port: process.env.PORT || 8080,
     env: process.env.NODE_ENV || 'dev',
 

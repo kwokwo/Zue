@@ -24,6 +24,6 @@ module.exports = (app) => {
         // user webpackHotMiddleware
         app.use(webpackHotMiddleware(compiler));
     } else {
-        
+        webpack(webpackConfig);
     }
 };

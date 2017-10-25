@@ -2,13 +2,12 @@
 const nunjucks = require('nunjucks');
 const webpackMiddleWare = require('./webpack.middleware');
 const bodyParser = require('body-parser');
-
+const compression = require('compression');
+const csurf = require('./csurf');
+const helmet = require('helmet');
+const config = require('../config/server.config');
 module.exports = (app) => {
-    // 引入nunjucks
-    nunjucks.configure('views', {
-        autoescape: true,
-        express: app,
-    });
+    app.use(helmet());
     // 引入webpack 相关中间件
     webpackMiddleWare(app);
     // 引入bodyParser 中间件
@@ -19,4 +18,7 @@ module.exports = (app) => {
 
     // parse application/json
     app.use(bodyParser.json());
+    csurf(app);
+    // compression website
+    app.use(compression());
 };

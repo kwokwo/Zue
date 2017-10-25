@@ -1,14 +1,22 @@
-import nunjucks from 'nunjucks';
-import express from 'express';
-import bodyParser from 'bodyParser';
-const app = express();
+'use strict';
+const nunjucks = require('nunjucks');
+const webpackMiddleWare = require('./webpack.middleware');
+const bodyParser = require('body-parser');
 
-// 引入nunjucks
-nunjucks.configure('views', {
-    autoescape: true,
-    express: app,
-});
+module.exports = (app) => {
+    // 引入nunjucks
+    nunjucks.configure('views', {
+        autoescape: true,
+        express: app,
+    });
+    // 引入webpack 相关中间件
+    webpackMiddleWare(app);
+    // 引入bodyParser 中间件
+    // parse application/x-www-form-urlencoded
+    app.use(bodyParser.urlencoded({
+        extended: false,
+    }));
 
-app.use(bodyParser);
-
-
+    // parse application/json
+    app.use(bodyParser.json());
+};

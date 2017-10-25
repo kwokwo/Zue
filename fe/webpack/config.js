@@ -1,9 +1,3 @@
-module.exports = {
-    output: {
-        filename: '[name].[hash].js',
-        path: '../build',
-    },
-    pagePath: 'fe/src/pages',
-    templateExt: 'html',
-    rootPath: 'fe',
-};
+const path = require('path');
+const config = require(path.resolve('./server/config/server.config.js'));
+module.exports = config;

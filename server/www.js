@@ -1,16 +1,16 @@
-import express from 'express';
-import controllers from './controllers';
-import middlewares from './middlewares';
-let port = 8080;
+'use strict';
+const express = require('express');
+const controllers = require('./controllers');
+const middlewares = require('./middlewares');
+const config = require('./config/server.config');
 let app = express();
 
 // 设置中间件
-app.use(middlewares);
+middlewares(app);
 
 // 设置路由
 app.use(controllers);
 
-
-app.listen(port, ()=>{
-    console.log('listen on port '+ port);
+app.listen(config.port, ()=>{
+    console.log('listen on port '+ config.port);
 });

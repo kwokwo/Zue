@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const config = require('./config');
 const webpackEntry = require('./multi-route/entry');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 let baseEntry = webpackEntry.getMultiEntry();
 let webpackPlugins = [
   new ExtractTextPlugin('[name].[hash].css'),
@@ -15,10 +15,13 @@ let webpackPlugins = [
     $: 'jquery',
     jQuery: 'jquery',
   }),
+  // 写入硬盘 -- 需要htmlwebpackPlugins 配置
+  new HtmlWebpackHarddiskPlugin(),
 ];
 // 添加多个路由的编译html
 
 webpackPlugins = webpackPlugins.concat(baseEntry.htmls);
+
 module.exports = {
   entry: Object.assign({
     'static/common': path.resolve(__dirname, '../src/chunks/common.js'),
@@ -26,7 +29,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, config.output.path),
     filename: config.output.filename,
-    publicPath: 'http://localhost:8080',
+    publicPath: config.output.publicPath,
   },
   module: {
     rules: [{

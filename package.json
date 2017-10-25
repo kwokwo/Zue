@@ -4,8 +4,9 @@
   "description": "test vue webpack",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env webpack-dev-server --config fe/webpack/webpack.dev.config.js ",
-    "test": "cross-env webpack --config fe/webpack/webpack.dev.config.js --color"
+    "dev-webpack": "cross-env webpack-dev-server --config fe/webpack/webpack.dev.config.js --hot",
+    "test": "cross-env webpack --config fe/webpack/webpack.dev.config.js",
+    "start": "cross-env supervisor -w server -i fe,node_modules server/www.js"
   },
   "author": "",
   "license": "MIT",
@@ -24,6 +25,7 @@
     "express": "^4.16.2",
     "extract-text-webpack-plugin": "^3.0.1",
     "glob": "^7.1.2",
+    "html-webpack-harddisk-plugin": "^0.1.0",
     "html-webpack-plugin": "^2.30.1",
     "jquery": "^3.2.1",
     "less": "^2.7.3",
@@ -31,7 +33,9 @@
     "nunjucks": "^3.0.1",
     "style-loader": "^0.19.0",
     "webpack": "^3.6.0",
+    "webpack-dev-middleware": "^1.12.0",
     "webpack-dev-server": "^2.8.2",
+    "webpack-hot-middleware": "^2.20.0",
     "webpack-merge": "^4.1.0"
   }
 }

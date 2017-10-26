@@ -2,24 +2,26 @@ const path = require('path');
 const webpack = require('webpack');
 const config = require('./config');
 const webpackEntry = require('./multi-route/entry');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+// get entrys for webpack config
 let baseEntry = webpackEntry.getMultiEntry();
-console.log(path.resolve(__dirname, '../src/partial/'+config.partial));
 let webpackPlugins = [
   new ExtractTextPlugin('[name].[hash].css'),
   new webpack.optimize.CommonsChunkPlugin({
     name: 'static/common',
     chunks: ['static/common'],
   }),
+  // 自动引入jquery
   new webpack.ProvidePlugin({
     $: 'jquery',
     jQuery: 'jquery',
   }),
   // 写入硬盘 -- 需要htmlwebpackPlugins 配置
   new HtmlWebpackHarddiskPlugin(),
-  // 复制 partial 公共部分到view
+  // 复制 partial 公共部分到views
   new CopyWebpackPlugin([
     {
       context: path.resolve(__dirname, '../src/partial/'+config.partial),
@@ -55,13 +57,6 @@ module.exports = {
           limit: 8192,
           name: '[path][name].[ext]',
         },
-      },
-      {
-        test: /\.(less|css)$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'less-loader'],
-        }),
       },
     ],
   },

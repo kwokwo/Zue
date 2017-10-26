@@ -3,7 +3,6 @@ const webpack = require('webpack');
 const config = require('../config/server.config');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
-
 module.exports = (app) => {
     // get webpackConfig for webpack-dev and webpack-hot
     let webpackConfig = config.env == 'production' ?
@@ -13,16 +12,25 @@ module.exports = (app) => {
     if (config.env == 'dev') {
         // compoler  webpackConfig
         const compiler = webpack(webpackConfig);
-        // use webpackDevMiddleware
-        app.use(webpackDevMiddleware(compiler, {
+        let devMiddleware = webpackDevMiddleware(compiler, {
             publicPath: config.output.publicPath,
-            noInfo: true, // 是否启动显示
-            stats: {
-                colors: true,
-            },
-        }));
+            hot: true,
+            quiet: true,
+        });
+        let hotMiddleware = webpackHotMiddleware(compiler);
+        // add html hmr
+        compiler.plugin('compilation', (compilation) => {
+            compilation.plugin('html-webpack-plugin-after-emit', (data, callback) => {
+                hotMiddleware.publish({
+                    action: 'reload',
+                });
+                callback();
+            });
+        });
+        // use webpackDevMiddleware
+        app.use(devMiddleware);
         // user webpackHotMiddleware
-        app.use(webpackHotMiddleware(compiler));
+        app.use(hotMiddleware);
     } else {
         webpack(webpackConfig);
     }

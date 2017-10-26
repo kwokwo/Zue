@@ -2,10 +2,11 @@
 
 const webpackMiddleWare = require('./webpack.middleware');
 const bodyParser = require('body-parser');
-const compression = require('compression');
+// const compression = require('compression');
 const csurf = require('./csurf');
 const helmet = require('helmet');
 module.exports = (app) => {
+    // xss
     app.use(helmet());
     // 引入webpack 相关中间件
     webpackMiddleWare(app);
@@ -19,5 +20,5 @@ module.exports = (app) => {
     app.use(bodyParser.json());
     csurf(app);
     // compression website
-    app.use(compression());
+    // app.use(compression());
 };

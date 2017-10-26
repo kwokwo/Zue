@@ -3,7 +3,6 @@ const path = require('path');
 const fs = require('fs');
 const config = require('../config');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const hotMiddlewareScript = 'webpack-hot-middleware/client?reload=true';
 module.exports = {
     /**
      * getMultiEntry
@@ -22,15 +21,9 @@ module.exports = {
             let jsPath = path.resolve(file.dir, file.name + '.js');
             // 判断是否存在同名的js文件
             if (fs.existsSync(jsPath)) {
-                if (config.env == 'dev') {
-                    entrys['static/' + file.name] = [jsPath, hotMiddlewareScript];
-                } else {
-                    entrys['static/' + file.name] = jsPath;
-                }
+                entrys['static/' + file.name] = jsPath;
                 let _webpackHtml = this.getMultiWebpackHtml(file);
                 htmls.push(_webpackHtml);
-            } else {
-                console.log(path.resolve(file.dir, file.name + '.js') + ' not find');
             }
         });
         return {

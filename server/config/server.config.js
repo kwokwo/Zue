@@ -2,7 +2,7 @@ const path = require('path');
 let config = {
     output: {
         filename: '[name].[hash].js',
-        path: '../build',
+        path: '../output',
         publicPath: 'http://localhost:8080/',
     },
     root: path.resolve(__dirname, '../../'),

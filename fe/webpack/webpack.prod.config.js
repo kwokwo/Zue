@@ -1,18 +1,20 @@
 const merge = require('webpack-merge');
-const path = require('path');
 const config = require('./config');
 const baseWebpackConfig = require('./webpack.base.config');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = merge(baseWebpackConfig, {
-    devServer: {
-        contentBase: path.resolve(__dirname, '../../'+config.rootPath+'/build'),
-        host: '0.0.0.0',
-    },
-    devtool: 'source-map',
+
     plugins: [
         new CleanWebpackPlugin([config.rootPath + '/build'], {root: process.cwd()}),
+        // 复制 partial 公共部分到views
+          new CopyWebpackPlugin([
+            {
+              context: path.resolve(__dirname, '../src/partial/'+config.partial),
+              from: '**/*.html',
+              to: config.root + '/server/views/partial'},
+          ]),
     ],
     module: {
         rules: [

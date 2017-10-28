@@ -38,7 +38,7 @@ module.exports = {
             filename: config.root+'/server/views/' + dirPath + '/' + file.name + '.' + config.templateExt,
             template: file.dir + '/' + file.name + file.ext,
             chunks: ['static/common', 'static/' + file.name],
-            inject: true,
+            inject: false,
             chunksSortMode: 'manual', // 手动设置chunks 顺序
             alwaysWriteToDisk: true, // 是否一致写入硬盘 dev环境也写入,为了给express找到文件
         });

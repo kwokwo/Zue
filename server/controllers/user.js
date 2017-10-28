@@ -10,6 +10,6 @@ router.use('/detail', (req, res)=>{
     res.render('user/detail/detail');
 });
 router.use('/login', (req, res)=>{
-    res.render('user/login/login');
+    res.render('pages/user/login/login', {title: '百度少年'});
 });
 module.exports = router;

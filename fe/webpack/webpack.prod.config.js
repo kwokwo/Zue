@@ -7,7 +7,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = merge(baseWebpackConfig, {
 
     plugins: [
-          new CleanWebpackPlugin([config.rootPath + '/output'], {root: process.cwd()}),
+        // 清空缓存
+        new CleanWebpackPlugin([config.rootPath + '/output'], {root: process.cwd()}),
     ],
     module: {
         rules: [

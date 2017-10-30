@@ -7,14 +7,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = merge(baseWebpackConfig, {
 
     plugins: [
-        new CleanWebpackPlugin([config.rootPath + '/build'], {root: process.cwd()}),
-        // 复制 partial 公共部分到views
-          new CopyWebpackPlugin([
-            {
-              context: path.resolve(__dirname, '../src/partial/'+config.partial),
-              from: '**/*.html',
-              to: config.root + '/server/views/partial'},
-          ]),
+          new CleanWebpackPlugin([config.rootPath + '/output'], {root: process.cwd()}),
     ],
     module: {
         rules: [

@@ -10,7 +10,7 @@ let config = {
     frontendProject: 'fe',
     partial: 'nunjucks',
     port: process.env.PORT || 8080,
-    env: process.env.NODE_ENV || 'dev',
+    env: process.env.NODE_ENV || 'production',
 
 };
 Object.assign(config, {

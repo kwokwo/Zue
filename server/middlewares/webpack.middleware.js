@@ -7,9 +7,9 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 module.exports = (app) => {
     // get webpackConfig for webpack-dev and webpack-hot
-    let webpackConfig = config.env == 'production' ?
-        require(config.webpack.prodConfig) :
-        require(config.webpack.devConfig);
+    let webpackConfig = config.env == 'dev' ?
+        require(config.webpack.devConfig) :
+        require(config.webpack.prodConfigpm);
 
     if (config.env == 'dev') {
         // compoler  webpackConfig

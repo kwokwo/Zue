@@ -7,11 +7,14 @@
     "dev-webpack": "cross-env webpack-dev-server --config fe/webpack/webpack.dev.config.js",
     "test": "cross-env webpack --config fe/webpack/webpack.dev.config.js",
     "start": "cross-env NODE_ENV=dev nodemon server/www.js",
-    "build": "cross-env NODE_ENV=production node server/www.js"
+    "node-build": "cross-env NODE_ENV=production node server/www.js",
+    "build": "cross-env pm2 start server/www.js -i 2 --env production"
   },
   "author": "",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+
+  },
   "devDependencies": {
     "babel-core": "^6.21.0",
     "babel-eslint": "^8.0.1",

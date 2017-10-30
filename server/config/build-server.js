@@ -7,7 +7,7 @@ const middlewares = require('../middlewares');
 const config = require('./server.config');
 let app = express();
 // 引入nunjucks
-nunjucks.configure(path.join(__dirname, '../views/pages'), {
+nunjucks.configure(path.join(__dirname, '../views'), {
     autoescape: true,
     noCache: config.env == 'production' ? false : true,
     express: app,
